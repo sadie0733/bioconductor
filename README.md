@@ -91,7 +91,7 @@ asciinema auth
 
 # check if R is installed?
 R
-# check if bioconductor package installed
+# check if bioconductor package installed:
 library(Biostrings)
 sequences <- c("AAATCGA", "ATACAACAT", "TTGCCA")
 sequences
