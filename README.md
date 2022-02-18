@@ -1,80 +1,131 @@
-# Module 2: Guessing Games
+# build bioconductor-asciinema docker image
+
+This assignment walks you through modifying an [bioconductor docker images](https://hub.docker.com/r/bioconductor/bioconductor_docker) by installing [asciinema](https://asciinema.org/docs/installation) and saving the new docker image to dockerhub. [asciinema](https://asciinema.org/about) is a free and open source solution for recording terminal sessions and sharing them on the web. [Docker](https://www.docker.com/resources/what-container) is tool that packages software into self-contained computing environments, called containers. [Docker Hub](https://www.docker.com/products/docker-hub) is a hosted repository service provided by Docker for finding and sharing container images with others.
+
+<!-- blank line -->
+----
+<!-- blank line -->
 
 ## Learning Objectives:
-
-### Utilizing a simple Git workflow
- - Editing Readme files
- - Checking in/out code
- - Pushing and Pulling code to/from a repository
- - Accepting & merging Pull Requests
-
-### Understanding basic programming concepts
- - Loops
- - Basic user input
- - Conditionals and Booleans
- - Basic string indexing
-
-### RStudio Environment
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/GMS6804-Spring2022-ORG/module-template/HEAD?labpath=rstudio)
-
-
-## PreClass Assignment
-
-1. Complete the Guess that number assignment from PJS.
-  - Check-in and Push the changes to your local repository
-  - Check-in and Push a screenshot of you playing the game
+ - pull a [bioconductor docker image](https://hub.docker.com/r/bioconductor/bioconductor_docker) from DockerHub
+ - run the bioconductor/bioconductor_docker container via docker
+ - install asciinema via CLI
+ - save changes to a new docker image
+ - push the new docker image to dockerhub
  
-## Assignment (due 6/30/19)
+  ## Assignment 
+1. Complete the assignment described below.
+2. Upload a link to your dockerhub account.
+3. Upload a link with screen-cast.
 
-1. Check-in and Push code from Module 0 and the pre-class.
-2. Accept Pull-Request with your grades from the previous assignment.
-3. Complete the Primer Guessing assignment described below.
-  - Check-in and Push the changes to guess_my_primer.py
-  - Check-in and Push a screenshot of you playing the Guess A Primer game.
-  - Place the screenshot in this Readme.md file so it properly displays.
-  - Add links to any resources used. This includes results of google-searches, Stack-Overflow posts, blog-posts, etc.
-3. Add a link to the repo to BBLearn as your "Assignment".
+### Prerequisites
+* create an asciinema account using email at [asccinema.org](https://asciinema.org/login/new) 
+* create a [dockerhub account](https://hub.docker.com/)
+* navigate to the directory: ~/assignments/bioconductor_asciinema
+<!-- blank line -->
+----
+<!-- blank line -->
 
-### Guess A Primer
-
-Dozens of molecular biology techniques use oligigonucleotide primers as fundemental tools to answer bioligical questions.
-These primers consist of short segments (15-45bp) of single-stranded DNA that researchers use to create short double-stranded segments of initially single-stranded DNA. 
-In order for this annealing to happen, they must identically match the target sequence *(technically it must match the reverse-complement, but we'll deal with that in Module 6)*.
-
-Make a program using the [Guess That Number](https://github.com/biomed-bioinformatics-bootcamp/python-jumpstart-course-demos/tree/master/apps/02-guess-number-app) as a template and make a `guess_that_primer.py` file in the `Module02` directory.
-Modify the code to have the following features.
-
-  - Replace the "guess a number" code with something that generates a random DNA string. Make the string 5 letters long.
-  - Provide the user with the number letters to guess.
-  - Check the user input against the target DNA string.
-    - If the user guesses correctly. Print a congrats and exit.
-    - If the user guesses incorrectly, Print the number of correct letters. Then allow another guess.
-
-## Rubric
-
-### PJS Grade:
-
-|  Rubric        | Score | 
+ ### Assignment Points
+|  Rubric        | Points | 
 |----------------|-------|
-| Working Code   |  -/5  |
-| PEP8 Compliant |  -/5  |
-| Comments       |  -/5  |
-| Screenshot     |  -/5  |
+| Dockerhub     |  -/5  |
+| Screencast     |  -/5  |
 | On Time        |  -/5  |
+*Total Points: -/10*
 
-### Guess A Primer Grade:
+## Getting Started
 
-|  Rubric        | Score | 
-|----------------|-------|
-| Working Code   |  -/5  |
-| PEP8 Compliant |  -/5  |
-| Comments       |  -/5  |
-| Screenshot     |  -/5  |
-| On Time        |  -/5  |
+### 1. open docker teminal
+<!-- blank line -->
+----
+<!-- blank line -->
 
-*Final Grade: -/50*
+### 2. clone repo and navigate to directory
+<!-- blank line -->
+```
+cd ~/bioconductor
+```
+----
+<!-- blank line -->
 
-## Resources Used
+### 3. create a new container that installs asciinema using a dockerfile
+```
+docker build -t bioconductor_asciinema .
+```
+<!-- blank line -->
+----
+<!-- blank line -->
 
-- Random choices from lists: https://docs.python.org/2/library/random.html#random.choice
-- template: https://github.com/biomed-bioinformatics-bootcamp/BMES-T580-2019/blob/master/Module02/Readme.md
+### 4. boot into the new docker container 
+```
+docker run -it bioconductor_asciinema:latest bash
+```
+<!-- blank line -->
+----
+<!-- blank line -->
+
+### 5. start a screen-cast from within the container 
+```
+asciinema rec
+```
+<!-- blank line -->
+----
+<!-- blank line -->
+
+### 6. link your container to your asciinema.org account by opening the URL in a web browser 
+```
+asciinema auth
+```
+<!-- blank line -->
+----
+<!-- blank line -->
+
+### 7. add screen-cast headers and check your docker container
+```
+# GMS6804
+# name: [your-name-here]
+# date: [current-date]
+# semester: [current-semester]
+# assignment: quiz07- bioconductor-asciinema  
+
+# check if R is installed?
+R
+# check if bioconductor package installed
+library(Biostrings)
+sequences <- c("AAATCGA", "ATACAACAT", "TTGCCA")
+sequences
+dna <- DNAStringSet(sequences)
+dna
+reverse(dna)
+reverseComplement(dna)
+quit()
+
+```
+<!-- blank line -->
+----
+<!-- blank line -->
+
+### 8. exit out of container
+```
+CTRL-D
+```
+<!-- blank line -->
+----
+<!-- blank line -->
+
+### 9. login to dockerhub
+```
+docker login
+login: [YOUR DOCKERHUB ID]
+pwd: [YOUR PASSWORD]
+```
+<!-- blank line -->
+----
+<!-- blank line -->
+
+### 10. tag container
+```
+docker tag bioconductor_asciinema [YOUR DOCKERHUB ID]/bioconductor_asciinema:[month_year]
+docker push [YOUR DOCKERHUB ID]/bioconductor_asciinema:[month_year]
+```
